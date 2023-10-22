@@ -16,7 +16,7 @@ class TFLiteModel:
         try:
             data = np.load(data_path)
 
-            self.interpreter.set_tensor(self.input_details[0]['index'], np.array([data], dtype=np.float32))
+            self.interpreter.set_tensor(self.input_details[0]['index'], np.expand_dims(data, axis=0))
             self.interpreter.invoke()
             pred_prob = self.interpreter.get_tensor(self.output_details[0]['index'])
             self.interpreter.reset_all_variables()
